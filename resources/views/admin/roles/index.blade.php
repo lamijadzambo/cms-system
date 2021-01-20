@@ -2,6 +2,14 @@
     @section('content')
 
         <div class="row">
+            @if(session()->has('role-deleted'))
+                <div class="alert alert-danger">
+                    {{session('role-deleted')}}
+                </div>
+            @endif
+        </div>
+
+        <div class="row">
             <div class="col-sm-3">
                 <form method="post" action="{{route('role.store')}}">
                     @csrf
@@ -50,7 +58,7 @@
                                     @foreach($roles as $role)
                                         <tr>
                                             <td>{{$role->id}}</td>
-                                            <td>{{$role->name}}</td>
+                                            <td><a href="{{route('role.edit', $role->id)}}">{{$role->name}}</a></td>
                                             <td>{{$role->slug}}</td>
                                             <td>
                                                 <form method="post" action="{{route('role.destroy', $role->id)}}">
